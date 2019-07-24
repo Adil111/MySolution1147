@@ -1,0 +1,53 @@
+package dahaTest;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+
+public class MySolution {
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        int A = s.nextInt(), B = s.nextInt(), n = s.nextInt();
+        int[][] paper = new int[B][A];
+
+        for (int i = 0; i < B; i++) {
+            for (int j = 0; j < A; j++) {
+                paper[i][j] = 1;
+            }
+        }
+
+        Map<Integer, Integer> areas = new HashMap<>();
+        areas.put(1,A*B);
+
+        for (int i = 0; i < n; i++) {
+            int llx = s.nextInt();
+            int lly = s.nextInt();
+            int urx = s.nextInt();
+            int ury = s.nextInt();
+            int color = s.nextInt();
+            for (int j = lly; j < ury; j++) {  //<=??
+                for (int k = llx; k < urx; k++) {
+                    paper[j][k] = color;
+                }
+            }
+            areas.put(color,0);
+        }
+
+        Set<Integer> colors = areas.keySet();
+
+        for (int color: colors) {
+            int area = 0;
+            for (int i = 0; i < B; i++) {
+                for (int j = 0; j < A; j++) {
+                    if(color == paper[i][j]){
+                        area++;
+                    }
+                }
+            }
+            areas.put(color,area);
+            System.out.println(color + " " + area);
+        }
+
+    }
+}
